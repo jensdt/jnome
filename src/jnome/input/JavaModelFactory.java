@@ -9,18 +9,19 @@ import java.util.Collection;
 import java.util.Set;
 
 import jnome.core.language.Java;
-import jnome.core.type.JavaTypeReference;
 import jnome.input.parser.JavaLexer;
 import jnome.input.parser.JavaParser;
 import jnome.output.JavaCodeWriter;
 
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.Lexer;
 import org.antlr.runtime.RecognitionException;
 import org.rejuse.io.fileset.FileNamePattern;
 import org.rejuse.io.fileset.FileSet;
 import org.rejuse.io.fileset.PatternPredicate;
 
+import org.antlr.runtime.Parser;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
@@ -340,11 +341,21 @@ public class JavaModelFactory extends ModelFactoryUsingANTLR {
 
     public ChameleonParser getParser(InputStream inputStream, String fileName) throws IOException {
         ANTLRInputStream input = new ANTLRInputStream(inputStream);
-        JavaLexer lexer = new JavaLexer(input);
+        Lexer lexer = lexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        JavaParser parser = new JavaParser(tokens);
+        ChameleonParser parser = parser(tokens);
         parser.setLanguage((ObjectOrientedLanguage) language());
         return parser;
+    }
+    
+    // TODO: documentation (Jens)
+    public Lexer lexer(ANTLRInputStream input) {
+    	return new JavaLexer(input);
+    }
+    
+    // TODO: documentation (Jens)
+    public ChameleonParser parser(CommonTokenStream tokens) {
+    	return new JavaParser(tokens);
     }
 
     /**

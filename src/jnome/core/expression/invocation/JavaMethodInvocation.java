@@ -21,7 +21,7 @@ import chameleon.core.declaration.DeclarationContainer;
 import chameleon.core.declaration.Signature;
 import chameleon.core.element.Element;
 import chameleon.core.expression.Expression;
-import chameleon.core.expression.Invocation;
+import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.InvocationTarget;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
@@ -470,9 +470,9 @@ public class JavaMethodInvocation extends RegularMethodInvocation<JavaMethodInvo
   
   public static class JavaMostSpecificMethodOrder extends WeakPartialOrder<NormalMethod> {
   	
-  	Invocation _invocation;
+  	MethodInvocation _invocation;
   	
-  	public JavaMostSpecificMethodOrder(Invocation invocation) {
+  	public JavaMostSpecificMethodOrder(MethodInvocation invocation) {
   		_invocation = invocation;
   	}
 

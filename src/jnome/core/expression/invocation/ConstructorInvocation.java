@@ -15,7 +15,7 @@ import chameleon.core.declaration.DeclarationContainer;
 import chameleon.core.declaration.Signature;
 import chameleon.core.element.Element;
 import chameleon.core.expression.Expression;
-import chameleon.core.expression.Invocation;
+import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.InvocationTarget;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
@@ -35,7 +35,7 @@ import chameleon.util.Util;
  * @author Marko van Dooren
  *
  */
-public class ConstructorInvocation extends Invocation<ConstructorInvocation, NormalMethod> implements DeclarationContainer<ConstructorInvocation, Element> {
+public class ConstructorInvocation extends MethodInvocation<ConstructorInvocation, NormalMethod> implements DeclarationContainer<ConstructorInvocation, Element> {
 
   /**
    * @param target

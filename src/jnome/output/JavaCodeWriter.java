@@ -33,7 +33,7 @@ import org.rejuse.predicate.SafePredicate;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.element.Element;
 import chameleon.core.expression.Expression;
-import chameleon.core.expression.Invocation;
+import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.InvocationTarget;
 import chameleon.core.expression.Literal;
 import chameleon.core.expression.NamedTarget;
@@ -1281,7 +1281,7 @@ public class JavaCodeWriter extends Syntax {
     return result.toString();
   }
   
-  public String getActualArgs(Invocation inv) throws LookupException {
+  public String getActualArgs(MethodInvocation inv) throws LookupException {
     StringBuffer result = new StringBuffer();
     result.append("(");
     Iterator<Expression> iter = inv.getActualParameters().iterator();
