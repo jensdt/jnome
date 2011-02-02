@@ -1531,9 +1531,9 @@ public boolean isExtendsWildCard(Element element) {
     result.append(toCode(expr.getTarget()));
     Iterator iter = expr.getIndices().iterator();
     while(iter.hasNext()) {
-      result.append("[");
+     // result.append("[");
       result.append(toCode((Element)iter.next()));
-      result.append("]");
+     // result.append("]");
     }
     return result.toString();
   }
