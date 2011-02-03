@@ -410,24 +410,31 @@ public boolean isExtendsWildCard(Element element) {
     return element instanceof BasicJavaTypeReference;
   }
   
+  public String toCodeActualTypeArguments(List<ActualTypeArgument> actualTypeArguments) throws LookupException {
+	  StringBuffer result = new StringBuffer();
+	  
+	  if(actualTypeArguments != null && !actualTypeArguments.isEmpty()) {
+  		result.append("<");
+  		Iterator<ActualTypeArgument> iter = actualTypeArguments.iterator();
+  		while(iter.hasNext()) {
+  			result.append(toCode(iter.next()));
+  			if(iter.hasNext()) {
+  				result.append(",");
+  			}
+  		}
+  		result.append(">");
+  	}
+	  
+	  return result.toString();
+  }
+  
   public String toCodeBasicTypeReference(BasicJavaTypeReference typeReference) throws LookupException {
     String result = toCode(typeReference.getTarget());
     if(result.length() > 0) {
       result = result + ".";
     }
     result = result + typeReference.signature();
-    	List<ActualTypeArgument> typeArguments = typeReference.typeArguments();
-    	if(! typeArguments.isEmpty()) {
-    		result = result +"<";
-    		Iterator<ActualTypeArgument> iter = typeArguments.iterator();
-    		while(iter.hasNext()) {
-    			result = result + toCode(iter.next());
-    			if(iter.hasNext()) {
-    				result = result +",";
-    			}
-    		}
-    		result = result +">";
-    	}
+    result = result + toCodeActualTypeArguments(typeReference.typeArguments());
     return result;
   }
 
@@ -1391,6 +1398,7 @@ public boolean isExtendsWildCard(Element element) {
       result.append(toCode(inv.getTarget()));
       result.append(".");
     }
+    result.append(toCodeActualTypeArguments(inv.typeArguments()));
     result.append(inv.name());
     result.append(getActualArgs(inv));
     return result.toString();
