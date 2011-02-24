@@ -1,23 +1,18 @@
 package jnome.core.method;
 
 import jnome.core.language.Java;
-
-import org.rejuse.association.Association;
-import org.rejuse.association.SingleAssociation;
-
 import chameleon.core.declaration.DeclarationWithParametersHeader;
 import chameleon.core.declaration.DeclarationWithParametersSignature;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameDeclarationWithParametersSignature;
-import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
+import chameleon.core.member.Member;
+import chameleon.core.member.MemberRelationSelector;
 import chameleon.core.member.OverridesRelation;
-import chameleon.core.member.OverridesRelationSelector;
 import chameleon.core.method.Method;
 import chameleon.core.method.RegularMethod;
 import chameleon.oo.type.TypeReference;
 import chameleon.support.member.simplename.method.NormalMethod;
-import chameleon.util.CreationStackTrace;
 
 public class JavaNormalMethod<E extends RegularMethod<E,H,S,NormalMethod>, H extends DeclarationWithParametersHeader<H, S>, S extends DeclarationWithParametersSignature> extends NormalMethod<E,H,S> {
 
@@ -29,17 +24,21 @@ public class JavaNormalMethod<E extends RegularMethod<E,H,S,NormalMethod>, H ext
     return (E) new JavaNormalMethod(header().clone(), (TypeReference)returnTypeReference().clone());
   }
 
-	public OverridesRelationSelector<Method> overridesSelector() {
-		return new OverridesRelationSelector<Method>(Method.class,this,_overridesSelector);
+	public MemberRelationSelector<Method> overridesSelector() {
+		return new MemberRelationSelector<Method>(Method.class,this,_overridesSelector);
 	}
 
+  public OverridesRelation<? extends Member> overridesRelation() {
+  	return _overridesSelector;
+  }
+  
 	private static OverridesRelation<Method> _overridesSelector = new OverridesRelation<Method>(Method.class) {
 		
 		@Override
 		public boolean containsBasedOnRest(Method first, Method second) throws LookupException {
 			boolean result = isOverridable(second); 
 		if(result) {
-			result =  first.sameKind(second);// && first.nearestAncestor(Type.class).subTypeOf(second.nearestAncestor(Type.class));
+			result =  first.sameKind(second) ;// && first.nearestAncestor(Type.class).subTypeOf(second.nearestAncestor(Type.class));
 			if(result) {
 				DeclarationWithParametersSignature signature1 = first.signature();
 				DeclarationWithParametersSignature<?> signature2 = second.signature();
