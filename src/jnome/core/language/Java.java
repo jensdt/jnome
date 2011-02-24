@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import jnome.core.expression.invocation.JavaExtendsReference;
 import jnome.core.expression.invocation.JavaSuperReference;
@@ -367,6 +368,7 @@ public class Java extends ObjectOrientedLanguage {
 		public Type getDefaultSuperClass() throws LookupException {
 			  TypeReference typeRef = createTypeReferenceInDefaultNamespace(getDefaultSuperClassFQN());
 		    Type result = typeRef.getType();
+
 		    if (result==null) {
 		        throw new LookupException("Default super class "+getDefaultSuperClassFQN()+" not found.");
 		    }

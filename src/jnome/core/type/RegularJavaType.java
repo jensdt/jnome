@@ -7,6 +7,7 @@ import jnome.core.modifier.JavaConstructor;
 import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
+import chameleon.core.lookup.LookupException;
 import chameleon.core.member.Member;
 import chameleon.core.modifier.Modifier;
 import chameleon.oo.type.RegularType;
@@ -148,4 +149,21 @@ public class RegularJavaType extends RegularType {
   	reactOnDescendantAdded(newElement);
   }
 
+
+
+  /**
+   * 	TODO: temporarily added by Jens
+   */
+  @Override
+  public boolean uniSameAs(Element other) throws LookupException {
+	  boolean result = false;
+	  
+	  if (other instanceof RegularJavaType) {
+		  RegularJavaType otherType = (RegularJavaType) other;
+		  
+		  result = signature().sameAs(otherType.signature());
+	  }
+	  
+	  return result;
+  }
 }
